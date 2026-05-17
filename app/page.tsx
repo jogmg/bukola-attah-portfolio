@@ -1,65 +1,125 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { About } from "@components/About";
+import { Contact } from "@components/Contact";
+import { Footer } from "@components/Footer";
+import { Home } from "@components/Home";
+import { Navbar } from "@components/Navbar";
+import { Portfolio } from "@components/Portfolio";
+import { Reviews } from "@components/Reviews";
+import { Services } from "@components/Services";
+import { ThemeProvider, useTheme } from "@components/ThemeProvider";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, useGSAP);
+
+function PageContent() {
+  const { theme, toggleTheme } = useTheme();
+  const appRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const homeSection = document.getElementById("home");
+      const contentBundle = document.getElementById("content-bundle");
+      const bundleSections = gsap.utils.toArray(
+        "#content-bundle > section",
+      ) as HTMLElement[];
+
+      // 1. Home Stack Transition (Home Pins, Bundle Slides Over)
+      if (homeSection && contentBundle) {
+        ScrollTrigger.create({
+          trigger: homeSection,
+          start: "top top",
+          endTrigger: contentBundle,
+          end: "top top",
+          pin: true,
+          pinSpacing: false,
+          anticipatePin: 1,
+        });
+
+        gsap.to(homeSection, {
+          opacity: 0.1,
+          scale: 0.9,
+          filter: "blur(8px)",
+          scrollTrigger: {
+            trigger: contentBundle,
+            start: "top bottom",
+            end: "top top",
+            scrub: true,
+          },
+        });
+      }
+
+      // 2. Sections within the Bundle
+      bundleSections.forEach((section, i) => {
+        // Entry Animation
+        gsap.from(section.children, {
+          opacity: 0,
+          y: 20,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        });
+
+        // "Natural" Dim and Blur Exit
+        // As the section moves past the top of the viewport, it subtly fades and blurs
+        if (i < bundleSections.length - 1) {
+          gsap.to(section, {
+            opacity: 0.4,
+            scale: 0.97,
+            filter: "blur(4px)",
+            scrollTrigger: {
+              trigger: section,
+              start: "bottom 50%", // Start blurring only when the middle of the section enters the viewport
+              end: "bottom 0%", // Full blur when the bottom reaches the top
+              scrub: true,
+            },
+          });
+        }
+      });
+    },
+    { scope: appRef },
+  );
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+    <div
+      ref={appRef}
+      className="antialiased selection:bg-foreground selection:text-background bg-background text-foreground"
+    >
+      <div className="grain-overlay" />
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
+
+      <main className="relative">
+        <Home />
+        <div id="content-bundle" className="relative bg-background">
+          <About />
+          <Portfolio />
+          <Services />
+          <Reviews />
+          <Contact />
         </div>
       </main>
+
+      <div className="relative bg-background">
+        <Footer />
+      </div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <ThemeProvider>
+      <PageContent />
+    </ThemeProvider>
   );
 }
