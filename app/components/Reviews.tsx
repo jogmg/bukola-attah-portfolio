@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 export const Reviews = () => {
   const reviewsRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [tweetHovered, setTweetHovered] = useState<number | null>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -101,7 +102,7 @@ export const Reviews = () => {
           Client Testimonials
         </div>
         <h2 className="text-6xl md:text-8xl font-bold mb-4 font-display text-foreground italic leading-none">
-          Whispers
+          Reviews
         </h2>
       </div>
 
@@ -141,14 +142,17 @@ export const Reviews = () => {
         {tweets.map((tweet) => (
           <motion.div
             key={tweet.id}
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            whileHover={{
-              scale: 1.05,
-              zIndex: 100,
-            }}
+            animate={
+              tweetHovered === tweet.id
+                ? { scale: 1.05, zIndex: 100 }
+                : { scale: 1, zIndex: 1 }
+            }
+            onMouseEnter={() => setTweetHovered(tweet.id)}
+            onMouseLeave={() => setTweetHovered(null)}
+            onTouchStart={() => setTweetHovered(tweet.id)}
+            onTouchEnd={() => setTweetHovered(null)}
             className={cn(
-              "tweet-node p-6 bg-background/80 text-foreground border border-foreground/10 hover:bg-foreground hover:text-background hover:border-foreground cursor-pointer transition-all duration-500 shadow-2xl backdrop-blur-md",
+              "tweet-node p-6 bg-background/80 text-foreground border border-foreground/10 transition-all duration-500 shadow-2xl backdrop-blur-md",
               !isMobile ? "absolute max-w-[280px]" : "relative w-full",
             )}
             style={!isMobile ? { left: `${tweet.x}%`, top: `${tweet.y}%` } : {}}

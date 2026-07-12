@@ -2,8 +2,11 @@
 
 import { cn } from "@lib/utils";
 import { motion } from "motion/react";
+import { useState } from "react";
 
 export const Services = () => {
+  const [packageHovered, setPackageHovered] = useState<number | null>(null);
+
   const plans = [
     {
       name: "Silver",
@@ -50,21 +53,26 @@ export const Services = () => {
       <div className="max-w-6xl mx-auto w-full">
         <div className="text-center mb-20">
           <div className="text-[10px] uppercase tracking-[0.4em] opacity-40 mb-4">
-            Strategic Frameworks
+            Service Plans
           </div>
           <h2 className="text-6xl font-bold mb-4 font-display italic">
             Packages
           </h2>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
-          {plans.map((plan, i) => (
+          {plans.map((plan, idx) => (
             <motion.div
-              key={i}
-              whileHover={{
-                scale: 1.08,
-                zIndex: 30,
-              }}
+              key={idx}
+              animate={
+                packageHovered === idx
+                  ? { scale: 1.08, zIndex: 30 }
+                  : { scale: 1, zIndex: 1 }
+              }
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              onMouseEnter={() => setPackageHovered(idx)}
+              onMouseLeave={() => setPackageHovered(null)}
+              onTouchStart={() => setPackageHovered(idx)}
+              onTouchEnd={() => setPackageHovered(null)}
               className={cn(
                 "p-10 border flex flex-col h-full transition-all duration-500",
                 plan.highlight

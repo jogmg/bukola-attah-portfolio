@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import React, { useState } from "react";
+import Button from "./base/Button";
 
 export const Contact = () => {
   const [formState, setFormState] = useState({
@@ -40,23 +41,21 @@ export const Contact = () => {
               <div className="text-[10px] uppercase tracking-widest opacity-40">
                 Email
               </div>
-              <a
+              <Button
+                text="hello@bukola.social"
                 href="mailto:#"
-                className="text-xl font-display w-fit border-b border-foreground/20 hover:pb-2 transition-all"
-              >
-                hello@bukola.social
-              </a>
+                className="text-xl font-display w-fit border-b border-foreground/20 pb-1 active:pb-2 transition-all cursor-pointer"
+              />
             </div>
             <div className="flex flex-col gap-2">
               <div className="text-[10px] uppercase tracking-widest opacity-40">
                 Phone
               </div>
-              <a
+              <Button
+                text="+1 (234) 567 8900"
                 href="tel:#"
-                className="text-xl font-display w-fit border-b border-foreground/20 hover:pb-2 transition-all"
-              >
-                +1 (234) 567 8900
-              </a>
+                className="text-xl font-display w-fit border-b border-foreground/20 pb-1 active:pb-2 transition-all cursor-pointer"
+              />
             </div>
           </div>
         </div>
@@ -111,7 +110,7 @@ export const Contact = () => {
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
             type="submit"
-            className="w-full py-6 cursor-pointer bg-foreground text-background font-bold text-[11px] uppercase tracking-[0.3em] transition-opacity"
+            className="w-full py-6 cursor-pointer bg-foreground text-background font-bold text-[11px] uppercase tracking-[0.3em] border border-foreground/20 transition-opacity"
             id="form-submit"
           >
             {submitted ? "Message Received" : "Send Message"}

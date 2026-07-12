@@ -2,17 +2,15 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import { cn } from "../lib/utils";
+import Button from "./base/Button";
 
 export const Portfolio = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(1200);
-
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const [porfolioHovered, setPortfolioHovered] = useState<number | null>(null);
 
   const projects = [
     {
@@ -60,6 +58,12 @@ export const Portfolio = () => {
     activeIndex * (currentCardWidth + gap) -
     currentCardWidth / 2;
 
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <section
       id="portfolio"
@@ -71,7 +75,7 @@ export const Portfolio = () => {
             Curated work
           </div>
           <h2 className="text-5xl md:text-8xl font-bold font-display uppercase tracking-tighter italic leading-none">
-            Selects
+            Portfolio
           </h2>
         </div>
         <div className="flex items-center gap-6 md:gap-8">
@@ -122,11 +126,22 @@ export const Portfolio = () => {
                 }}
               >
                 <div className="bg-background border border-foreground/10 p-3 md:p-4 shadow-2xl rounded-sm">
-                  <div className="aspect-4/5 overflow-hidden mb-4 md:mb-6 bg-foreground/5">
-                    <img
+                  <div
+                    className="aspect-4/5 overflow-hidden mb-4 md:mb-6 bg-foreground/5"
+                    onTouchStart={() => setPortfolioHovered(i)}
+                    onTouchEnd={() => setPortfolioHovered(null)}
+                    onMouseEnter={() => setPortfolioHovered(i)}
+                    onMouseLeave={() => setPortfolioHovered(null)}
+                  >
+                    <Image
                       src={project.img}
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                      width={500}
+                      height={500}
+                      className={cn(
+                        "w-full h-full object-cover transition-transform duration-1000",
+                        porfolioHovered === i && "scale-105",
+                      )}
                     />
                   </div>
                   <div className="flex justify-between items-start">
@@ -138,9 +153,10 @@ export const Portfolio = () => {
                         {project.desc}
                       </p>
                     </div>
-                    <button className="text-[9px] md:text-[10px] uppercase cursor-pointer tracking-widest border-b border-foreground pb-1 hover:pb-2 transition-all font-bold">
-                      Detail
-                    </button>
+                    <Button
+                      text="Detail"
+                      className="text-[9px] md:text-[10px] uppercase cursor-pointer tracking-widest border-b border-foreground pb-1 active:pb-2 transition-all font-bold"
+                    />
                   </div>
                 </div>
               </motion.div>
