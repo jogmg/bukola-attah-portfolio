@@ -24,7 +24,7 @@ export const About = () => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <div className="aspect-4/5 rounded-xl overflow-hidden bg-foreground/5 border border-foreground/10">
+          <div className="relative aspect-4/5 rounded-xl overflow-hidden bg-foreground/5 border border-foreground/10">
             <Image
               src={bukolaImg}
               alt="Bukola Attah"
@@ -32,6 +32,7 @@ export const About = () => {
                 "w-full h-full object-cover transition-all duration-1000 grayscale",
                 isHovered && "scale-105 grayscale-0",
               )}
+              priority
             />
           </div>
           <div className="absolute -bottom-8 -left-5 md:-left-8 size-24 md:size-40 border border-foreground/20 rounded-full flex flex-col items-center justify-center p-4 bg-foreground z-10 text-center backdrop-blur-md">

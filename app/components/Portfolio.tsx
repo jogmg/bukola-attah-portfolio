@@ -127,7 +127,7 @@ export const Portfolio = () => {
               >
                 <div className="bg-background border border-foreground/10 p-3 md:p-4 shadow-2xl rounded-sm">
                   <div
-                    className="aspect-4/5 overflow-hidden mb-4 md:mb-6 bg-foreground/5"
+                    className="relative aspect-4/5 overflow-hidden mb-4 md:mb-6 bg-foreground/5"
                     onTouchStart={() => setPortfolioHovered(i)}
                     onTouchEnd={() => setPortfolioHovered(null)}
                     onMouseEnter={() => setPortfolioHovered(i)}
@@ -136,12 +136,12 @@ export const Portfolio = () => {
                     <Image
                       src={project.img}
                       alt={project.title}
-                      width={500}
-                      height={500}
                       className={cn(
                         "w-full h-full object-cover transition-transform duration-1000",
                         porfolioHovered === i && "scale-105",
                       )}
+                      sizes="(max-width: 767px) 75vw, 400px"
+                      fill
                     />
                   </div>
                   <div className="flex justify-between items-start">
