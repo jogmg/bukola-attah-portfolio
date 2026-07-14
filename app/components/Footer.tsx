@@ -1,7 +1,7 @@
 "use client";
 
 import { SiInstagram, SiX } from "@icons-pack/react-simple-icons";
-import SocialLink from "./base/SocialLink";
+import SocialLink from "./common/SocialLink";
 
 export const Footer = () => (
   <footer className="w-full px-6 md:px-12 py-10 border-t border-foreground/10 flex flex-col md:flex-row justify-between items-center text-[9px] tracking-[0.3em] uppercase">

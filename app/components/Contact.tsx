@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import React, { useState } from "react";
-import Button from "./base/Button";
+import Button from "./common/Button";
 
 export const Contact = () => {
   const [formState, setFormState] = useState({

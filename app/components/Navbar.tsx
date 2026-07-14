@@ -40,7 +40,7 @@ export const Navbar = ({
               key={item.name}
               href={item.href}
               onClick={(e) => handleNavClick(e, item.href)}
-              className="text-[10px] uppercase tracking-[0.2em] font-medium px-2.5 hover:opacity-100 opacity-60 transition-opacity relative group"
+              className="text-[10px] uppercase tracking-[0.2em] font-medium p-2.5 hover:opacity-100 opacity-60 transition-opacity relative group"
               id={`nav-item-${item.name.toLowerCase()}`}
             >
               {item.name}

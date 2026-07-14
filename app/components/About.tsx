@@ -5,8 +5,8 @@ import bukolaImg from "@public/bukola.webp";
 import Image from "next/image";
 import { useState } from "react";
 import { cn, handleNavClick } from "../lib/utils";
-import Button from "./base/Button";
-import SocialLink from "./base/SocialLink";
+import Button from "./common/Button";
+import SocialLink from "./common/SocialLink";
 
 export const About = () => {
   const [isHovered, setIsHovered] = useState(false);

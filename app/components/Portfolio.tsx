@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { cn } from "../lib/utils";
-import Button from "./base/Button";
+import Button from "./common/Button";
 
 export const Portfolio = () => {
   const [activeIndex, setActiveIndex] = useState(0);
