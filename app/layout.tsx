@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -18,6 +18,14 @@ const playFair_Display = Playfair_Display({
   display: "swap",
 });
 
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  fallback: ["monospace"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Bukola Social - Digital Influence",
   description: "Elevate your digital influence with Bukola Social Management.",
@@ -31,7 +39,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${playFair_Display.variable}`}
+      className={`${inter.variable} ${playFair_Display.variable} ${outfit.variable}`}
     >
       <body className="antialiased">{children}</body>
     </html>

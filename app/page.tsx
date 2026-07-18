@@ -1,5 +1,7 @@
 "use client";
 
+import { Services } from "@/app/components/Services";
+import { ThemeProvider, useTheme } from "@/app/lib/ThemeProvider";
 import { About } from "@components/About";
 import { Contact } from "@components/Contact";
 import { Footer } from "@components/Footer";
@@ -7,8 +9,6 @@ import { Home } from "@components/Home";
 import { Navbar } from "@components/Navbar";
 import { Portfolio } from "@components/Portfolio";
 import { Reviews } from "@components/Reviews";
-import { Services } from "@/app/components/Services";
-import { ThemeProvider, useTheme } from "@/app/lib/ThemeProvider";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -95,7 +95,6 @@ function PageContent() {
       ref={appRef}
       className="antialiased selection:bg-foreground selection:text-background bg-background text-foreground"
     >
-      <div className="grain-overlay" />
       <Navbar theme={theme} toggleTheme={toggleTheme} />
 
       <main className="relative">

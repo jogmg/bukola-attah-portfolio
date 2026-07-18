@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 interface IButton {
-  text: string;
+  text: string | React.ReactNode;
   href?: string;
   onClick?: (e: any) => void;
   className: string;

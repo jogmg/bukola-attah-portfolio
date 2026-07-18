@@ -1,7 +1,7 @@
 "use client";
 
 import { SiInstagram, SiX } from "@icons-pack/react-simple-icons";
-import bukolaImg from "@public/bukola.webp";
+import bukolaImg from "@public/images/bukola.webp";
 import Image from "next/image";
 import { useState } from "react";
 import { cn, handleNavClick } from "../lib/utils";

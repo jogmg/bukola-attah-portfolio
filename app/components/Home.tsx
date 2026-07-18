@@ -39,7 +39,7 @@ export const Home = () => {
           { innerText: 0 },
           {
             innerText: target,
-            duration: 2.5,
+            duration: 5,
             ease: "power2.out",
             snap: { innerText: 1 },
             scrollTrigger: {

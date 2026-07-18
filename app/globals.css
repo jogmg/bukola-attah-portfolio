@@ -9,7 +9,7 @@
 @theme {
   --font-sans: var(--font-inter);
   --font-display: var(--font-playfair-display);
-  /* --font-mono: "Outfit", monospace; */
+  --font-mono: var(--font-outfit);
   
   --color-brand-light: #F9F7F4;
   --color-brand-dark: #1A1914;
@@ -19,13 +19,13 @@
   :root {
     --background: #F9F7F4;
     --foreground: #1A1914;
-    --border-alpha: rgba(26, 25, 20, 0.1);
+    --border-alpha: #a1a1a1;
   }
 
   .dark {
     --background: #1A1914;
     --foreground: #F9F7F4;
-    --border-alpha: rgba(249, 247, 244, 0.1);
+    --border-alpha: #404040;
   }
 
   body {
@@ -45,13 +45,3 @@
     letter-spacing: 0.2em;
   }
 }
-
-.grain-overlay {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.03;
-  z-index: 9999;
-  background-image: url('https://www.transparenttextures.com/patterns/p6-dark.png');
-}
-
